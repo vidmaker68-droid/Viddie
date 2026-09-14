@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rehavibe — Creative Concepts</title>
+<style>
+  :root{
+    --bg:#f7f8f7;
+    --surface:#ffffff;
+    --border:#e4e7e4;
+    --text:#1b241f;
+    --text-soft:#5b6660;
+    --text-faint:#8b958f;
+    --accent:#2f6f5e;
+    --accent-soft:#e7f1ee;
+    --accent-strong:#1f4f42;
+    --warn-bg:#fbf3e9;
+    --warn-border:#eddcc0;
+    --warn-text:#7a5a25;
+    --shadow-sm: 0 1px 2px rgba(20,30,25,0.06);
+    --shadow-md: 0 8px 24px rgba(20,30,25,0.10);
+    --shadow-phone: 0 20px 45px rgba(20,30,25,0.18), 0 4px 10px rgba(20,30,25,0.10);
+    --radius: 14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  ::selection{background:var(--accent-soft);}
+
+  /* ---------- App shell ---------- */
+  .app{
+    display:flex;
+    min-height:100vh;
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar{
+    width:280px;
+    flex-shrink:0;
+    background:var(--surface);
+    border-right:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    position:sticky;
+    top:0;
+    height:100vh;
+    overflow-y:auto;
+  }
+  .sidebar-header{
+    padding:28px 24px 18px 24px;
+    border-bottom:1px solid var(--border);
+  }
+  .sidebar-brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:4px;
+  }
+  .brand-mark{
+    width:30px;height:30px;
+    border-radius:8px;
+    background:linear-gradient(135deg, var(--accent), var(--accent-strong));
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:700;font-size:14px;
+    flex-shrink:0;
+  }
+  .sidebar-brand-name{
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.2px;
+  }
+  .sidebar-subtitle{
+    font-size:12px;
+    color:var(--text-faint);
+    margin-left:40px;
+  }
+  .nav-group-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-faint);
+    padding:18px 24px 8px 24px;
+    font-weight:600;
+  }
+  .nav-list{
+    list-style:none;
+    margin:0;
+    padding:0 12px;
+  }
+  .nav-item{
+    margin-bottom:2px;
+  }
+  .nav-btn{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    padding:11px 12px;
+    border-radius:10px;
+    font-size:13.5px;
+    color:var(--text-soft);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:inherit;
+    transition:background 0.15s ease, color 0.15s ease;
+  }
+  .nav-btn:hover{
+    background:var(--accent-soft);
+    color:var(--text);
+  }
+  .nav-btn.active{
+    background:var(--accent-soft);
+    color:var(--accent-strong);
+    font-weight:600;
+  }
+  .nav-num{
+    width:20px;height:20px;
+    border-radius:50%;
+    background:var(--border);
+    color:var(--text-soft);
+    font-size:11px;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    font-weight:600;
+  }
+  .nav-btn.active .nav-num{
+    background:var(--accent);
+    color:#fff;
+  }
+  .nav-btn .nav-label-text{
+    flex:1;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .sidebar-footer{
+    margin-top:auto;
+    padding:18px 24px;
+    border-top:1px solid var(--border);
+    font-size:11.5px;
+    color:var(--text-faint);
+    line-height:1.5;
+  }
+
+  /* ---------- Main content ---------- */
+  .main{
+    flex:1;
+    min-width:0;
+    padding:48px 56px;
+  }
+  .screen{display:none;}
+  .screen.active{display:block; animation: fadeIn 0.25s ease;}
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  .eyebrow{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.09em;
+    color:var(--accent);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1.page-title{
+    font-size:32px;
+    margin:0 0 12px 0;
+    letter-spacing:-0.01em;
+  }
+  p.page-lede{
+    font-size:15.5px;
+    color:var(--text-soft);
+    max-width:620px;
+    line-height:1.6;
+    margin:0 0 8px 0;
+  }
+
+  /* ---------- Cover Screen ---------- */
+  .cover-screen{
+    max-width:820px;
+    margin:0 auto;
+    padding-top:6vh;
+  }
+  .cover-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--accent-soft);
+    color:var(--accent-strong);
+    padding:7px 14px;
+    border-radius:999px;
+    font-size:12.5px;
+    font-weight:600;
+    margin-bottom:28px;
+  }
+  .cover-badge .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--accent);
+  }
+  .cover-title{
+    font-size:46px;
+    line-height:1.12;
+    letter-spacing:-0.02em;
+    margin:0 0 20px 0;
+    font-weight:750;
+  }
+  .cover-title span{color:var(--accent);}
+  .cover-claim{
+    font-size:18px;
+    color:var(--text-soft);
+    max-width:560px;
+    line-height:1.65;
+    margin:0 0 36px 0;
+  }
+  .cover-meta{
+    display:flex;
+    gap:36px;
+    flex-wrap:wrap;
+    padding:26px 0;
+    border-top:1px solid var(--border);
+    margin-top:12px;
+  }
+  .cover-meta-item .k{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-faint);
+    margin-bottom:6px;
+    font-weight:600;
+  }
+  .cover-meta-item .v{
+    font-size:15px;
+    font-weight:600;
+    color:var(--text);
+  }
+  .cover-cta{
+    margin-top:38px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:13px 24px;
+    border-radius:10px;
+    font-size:14.5px;
+    font-weight:600;
+    border:none;
+    cursor:pointer;
+    font-family:inherit;
+    transition:transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+  .btn-primary{
+    background:var(--accent);
+    color:#fff;
+    box-shadow:var(--shadow-sm);
+  }
+  .btn-primary:hover{
+    background:var(--accent-strong);
+    box-shadow:var(--shadow-md);
+    transform:translateY(-1px);
+  }
+  .btn-secondary{
+    background:var(--surface);
+    color:var(--text);
+    border:1px solid var(--border);
+  }
+  .btn-secondary:hover{
+    border-color:var(--accent);
+    color:var(--accent-strong);
+  }
+  .btn-ghost-arrow{margin-left:2px;}
+
+  /* ---------- Status Quo screen ---------- */
+  .statusquo-grid{
+    display:grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap:40px;
+    margin-top:36px;
+    align-items:start;
+  }
+  .sq-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:26px;
+    box-shadow:var(--shadow-sm);
+  }
+  .sq-card h3{
+    margin:0 0 16px 0;
+    font-size:15px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .sq-ad-preview{
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+    background:#fff;
+  }
+  .sq-ad-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 14px;
+  }
+  .sq-ad-avatar{
+    width:34px;height:34px;border-radius:50%;
+    background:linear-gradient(135deg,#d7ded9,#b9c4bd);
+    flex-shrink:0;
+  }
+  .sq-ad-namewrap .name{font-size:13px;font-weight:700;}
+  .sq-ad-namewrap .sponsored{font-size:11px;color:var(--text-faint);}
+  .sq-ad-photo{
+    height:220px;
+    background:
+      linear-gradient(180deg, #f2efe9 0%, #eae5dc 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+  }
+  .sq-ad-photo::before{
+    content:"";
+    width:120px;height:150px;
+    background:#ffffff;
+    border-radius:8px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    border:1px solid #e6e1d6;
+  }
+  .sq-ad-photo .cutout-label{
+    position:absolute;
+    bottom:12px;
+    font-size:10.5px;
+    color:#a79f8d;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+  }
+  .sq-ad-caption{
+    padding:12px 14px 16px 14px;
+    font-size:12.5px;
+    color:var(--text-soft);
+    line-height:1.5;
+  }
+  .sq-flags{
+    display:flex;
+    gap:8px;
+    padding:0 14px 14px 14px;
+    flex-wrap:wrap;
+  }
+  .flag{
+    font-size:10.5px;
+    font-weight:700;
+    padding:4px 9px;
+    border-radius:999px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+  }
+  .flag-warn{background:var(--warn-bg); color:var(--warn-text); border:1px solid var(--warn-border);}
+  .flag-neutral{background:var(--bg); color:var(--text-faint); border:1px solid var(--border);}
+
+  .sq-findings-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .sq-findings-list li{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .sq-icon{
+    width:28px;height:28px;
+    border-radius:8px;
+    background:var(--accent-soft);
+    color:var(--accent-strong);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    font-size:14px;
+    margin-top:1px;
+  }
+  .sq-findings-list .t{
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:2px;
+  }
+  .sq-findings-list .d{
+    font-size:13px;
+    color:var(--text-soft);
+    line-height:1.55;
+  }
+  .sq-opportunity{
+    margin-top:20px;
+    padding:16px 18px;
+    background:var(--accent-soft);
+    border-radius:10px;
+    font-size:13.5px;
+    color:var(--accent-strong);
+    line-height:1.6;
+  }
+  .sq-source-note{
+    margin-top:18px;
+    font-size:11.5px;
+    color:var(--text-faint);
+    line-height:1.6;
+  }
+
+  /* ---------- Concept screen ---------- */
+  .concept-topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-bottom:8px;
+  }
+  .concept-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:11.5px;
+    font-weight:700;
+    color:var(--accent-strong);
+    background:var(--accent-soft);
+    padding:5px 11px;
+    border-radius:999px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  .concept-progress{
+    font-size:12px;
+    color:var(--text-faint);
+    font-weight:600;
+  }
+
+  .concept-grid{
+    display:grid;
+    grid-template-columns: 340px 1fr;
+    gap:48px;
+    margin-top:28px;
+    align-items:start;
+  }
+
+  /* Phone mockup */
+  .phone-wrap{
+    position:sticky;
+    top:48px;
+  }
+  .phone{
+    width:100%;
+    max-width:320px;
+    margin:0 auto;
+    background:#111814;
+    border-radius:38px;
+    padding:12px;
+    box-shadow:var(--shadow-phone);
+  }
+  .phone-screen{
+    background:#fff;
+    border-radius:28px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  .phone-notch{
+    height:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .phone-notch::before{
+    content:"";
+    width:80px;height:6px;
+    background:#111814;
+    border-radius:4px;
+  }
+  .feed-header{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:10px 14px 8px 14px;
+  }
+  .feed-avatar{
+    width:32px;height:32px;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--accent), var(--accent-strong));
+    flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:13px;font-weight:700;
+  }
+  .feed-namewrap{flex:1; min-width:0;}
+  .feed-name{font-size:12.5px; font-weight:700; color:#1a1a1a;}
+  .feed-sponsored{font-size:10.5px; color:#8a8a8a; display:flex; align-items:center; gap:4px;}
+  .feed-dots{color:#8a8a8a; font-weight:700; letter-spacing:1px;}
+
+  .feed-media{
+    position:relative;
+    width:100%;
+    aspect-ratio: 4 / 5;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(47,111,94,0.10), transparent 55%),
+      linear-gradient(160deg, #eef2f0 0%, #e2e9e5 55%, #d9e2dd 100%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:22px;
+    text-align:center;
+    border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
+  }
+  .storyboard-tag{
+    position:absolute;
+    top:12px;
+    left:12px;
+    background:rgba(17,24,20,0.72);
+    color:#fff;
+    font-size:9.5px;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:5px 9px;
+    border-radius:6px;
+  }
+  .storyboard-timecode{
+    position:absolute;
+    top:12px;
+    right:12px;
+    background:rgba(17,24,20,0.72);
+    color:#fff;
+    font-size:9.5px;
+    font-weight:600;
+    padding:5px 8px;
+    border-radius:6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .play-btn{
+    width:56px;height:56px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.92);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 6px 18px rgba(0,0,0,0.18);
+    margin-bottom:16px;
+  }
+  .play-btn::after{
+    content:"";
+    width:0;height:0;
+    border-style:solid;
+    border-width:9px 0 9px 15px;
+    border-color:transparent transparent transparent var(--accent-strong);
+    margin-left:4px;
+  }
+  .storyboard-scene-label{
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--accent-strong);
+    font-weight:700;
+    margin-bottom:8px;
+  }
+  .storyboard-desc{
+    font-size:13px;
+    color:#3a453f;
+    line-height:1.55;
+    max-width:230px;
+    font-weight:500;
+  }
+  .storyboard-bars{
+    position:absolute;
+    bottom:14px;
+    left:22px;
+    right:22px;
+    display:flex;
+    gap:4px;
+  }
+  .storyboard-bars span{
+    height:3px;
+    flex:1;
+    background:rgba(17,24,20,0.15);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .storyboard-bars span::after{
+    content:"";
+    display:block;
+    height:100%;
+    width:0%;
+    background:var(--accent);
+  }
+  .storyboard-bars span.filled::after{width:100%;}
+
+  .feed-actions{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:10px 14px 4px 14px;
+    color:#2a2a2a;
+  }
+  .feed-actions .ic{font-size:19px; line-height:1;}
+  .feed-actions .spacer{flex:1;}
+  .feed-caption{
+    padding:2px 14px 14px 14px;
+    font-size:11.5px;
+    color:#333;
+    line-height:1.5;
+  }
+  .feed-caption b{font-weight:700;}
+  .feed-cta-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 14px;
+    background:#f4f5f4;
+    border-top:1px solid #eaeaea;
+  }
+  .feed-cta-bar .link{
+    font-size:10.5px;
+    color:#8a8a8a;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+  }
+  .feed-cta-btn{
+    font-size:11.5px;
+    font-weight:700;
+    background:#e7e9e8;
+    color:#1a1a1a;
+    padding:6px 12px;
+    border-radius:6px;
+  }
+  .phone-caption-note{
+    text-align:center;
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin-top:16px;
+    line-height:1.5;
+  }
+
+  /* Breakdown panel */
+  .breakdown{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+  .concept-heading{
+    font-size:26px;
+    margin:0 0 6px 0;
+    letter-spacing:-0.01em;
+  }
+  .concept-sub{
+    font-size:14px;
+    color:var(--text-soft);
+    margin:0 0 6px 0;
+  }
+  .breakdown-block{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:20px 22px;
+    box-shadow:var(--shadow-sm);
+  }
+  .breakdown-block .label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.07em;
+    color:var(--accent);
+    margin-bottom:10px;
+  }
+  .breakdown-block .label .n{
+    width:20px;height:20px;
+    border-radius:6px;
+    background:var(--accent-soft);
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;
+  }
+  .breakdown-block p{
+    margin:0;
+    font-size:14.5px;
+    line-height:1.65;
+    color:var(--text);
+  }
+  .breakdown-block.test p{
+    color:var(--text-soft);
+  }
+  .copy-block-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:16px;
+  }
+  .mini-block{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:16px 18px;
+    box-shadow:var(--shadow-sm);
+  }
+  .mini-block .label{
+    font-size:10.5px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--text-faint);
+    margin-bottom:8px;
+  }
+  .mini-block .value{
+    font-size:14.5px;
+    font-weight:600;
+    line-height:1.4;
+  }
+  .mini-block.cta .value{
+    display:inline-block;
+    background:var(--accent);
+    color:#fff;
+    padding:7px 14px;
+    border-radius:8px;
+    font-size:13px;
+  }
+
+  .concept-nav-footer{
+    display:flex;
+    justify-content:space-between;
+    margin-top:12px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+  }
+
+  /* ---------- Closing screen ---------- */
+  .closing-screen{
+    max-width:700px;
+    margin:0 auto;
+    padding-top:8vh;
+    text-align:center;
+  }
+  .closing-screen .eyebrow{ text-align:center; }
+  .closing-title{
+    font-size:36px;
+    letter-spacing:-0.01em;
+    margin:0 0 18px 0;
+  }
+  .closing-copy{
+    font-size:16px;
+    color:var(--text-soft);
+    line-height:1.7;
+    margin:0 auto 34px auto;
+    max-width:560px;
+  }
+  .closing-points{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    text-align:left;
+    margin:0 0 40px 0;
+  }
+  .closing-point{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:18px;
+    box-shadow:var(--shadow-sm);
+  }
+  .closing-point .num{
+    font-size:12px;
+    font-weight:700;
+    color:var(--accent);
+    margin-bottom:8px;
+  }
+  .closing-point .txt{
+    font-size:13.5px;
+    color:var(--text-soft);
+    line-height:1.55;
+  }
+  .closing-actions{
+    display:flex;
+    gap:14px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:30px;
+  }
+  .closing-footnote{
+    font-size:12px;
+    color:var(--text-faint);
+  }
+
+  /* ---------- Mobile top nav ---------- */
+  .mobile-topbar{
+    display:none;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 980px){
+    .concept-grid{ grid-template-columns:1fr; }
+    .phone-wrap{ position:static; }
+    .phone{ max-width:280px; }
+    .statusquo-grid{ grid-template-columns:1fr; }
+    .copy-block-grid{ grid-template-columns:1fr; }
+    .closing-points{ grid-template-columns:1fr; }
+  }
+
+  @media (max-width: 760px){
+    .app{ flex-direction:column; }
+    .sidebar{
+      display:none;
+    }
+    .mobile-topbar{
+      display:block;
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:var(--surface);
+      border-bottom:1px solid var(--border);
+    }
+    .mobile-topbar-brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:14px 18px 10px 18px;
+    }
+    .mobile-topbar-brand .sidebar-brand-name{font-size:14px;}
+    .mobile-nav-scroll{
+      display:flex;
+      gap:8px;
+      overflow-x:auto;
+      padding:0 14px 14px 14px;
+      -webkit-overflow-scrolling:touch;
+    }
+    .mobile-nav-scroll::-webkit-scrollbar{ display:none; }
+    .mobile-nav-btn{
+      flex-shrink:0;
+      white-space:nowrap;
+      font-size:12.5px;
+      font-weight:600;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:var(--surface);
+      color:var(--text-soft);
+      cursor:pointer;
+      font-family:inherit;
+    }
+    .mobile-nav-btn.active{
+      background:var(--accent);
+      color:#fff;
+      border-color:var(--accent);
+    }
+    .main{ padding:28px 18px 60px 18px; }
+    .cover-title{ font-size:32px; }
+    .cover-meta{ gap:22px; }
+    h1.page-title{ font-size:26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ============ SIDEBAR (desktop) ============ -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="brand-mark">RV</div>
+        <div class="sidebar-brand-name">Rehavibe</div>
+      </div>
+      <div class="sidebar-subtitle">Creative Concepts</div>
+    </div>
+
+    <div class="nav-group-label">Übersicht</div>
+    <ul class="nav-list">
+      <li class="nav-item"><button class="nav-btn" data-target="cover">
+        <span class="nav-num">•</span><span class="nav-label-text">Start</span>
+      </button></li>
+      <li class="nav-item"><button class="nav-btn" data-target="statusquo">
+        <span class="nav-num">•</span><span class="nav-label-text">Status Quo</span>
+      </button></li>
+    </ul>
+
+    <div class="nav-group-label">5 Creative-Konzepte</div>
+    <ul class="nav-list" id="concept-nav-list">
+      <!-- populated by JS -->
+    </ul>
+
+    <div class="nav-group-label">Abschluss</div>
+    <ul class="nav-list">
+      <li class="nav-item"><button class="nav-btn" data-target="closing">
+        <span class="nav-num">•</span><span class="nav-label-text">Nächste Schritte</span>
+      </button></li>
+    </ul>
+
+    <div class="sidebar-footer">
+      Creative Concepts vorbereitet für Rehavibe von Vidmaker Studio.<br>
+      Vertraulich — nur für internen Gebrauch.
+    </div>
+  </aside>
+
+  <!-- ============ MOBILE TOP NAV ============ -->
+  <div class="mobile-topbar">
+    <div class="mobile-topbar-brand">
+      <div class="brand-mark">RV</div>
+      <div class="sidebar-brand-name">Rehavibe — Creative Concepts</div>
+    </div>
+    <div class="mobile-nav-scroll" id="mobile-nav-scroll">
+      <!-- populated by JS -->
+    </div>
+  </div>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <!-- ---------- COVER SCREEN ---------- -->
+    <section class="screen" id="screen-cover">
+      <div class="cover-screen">
+        <div class="cover-badge"><span class="dot"></span> Creative Pitch · Meta Ads</div>
+        <h1 class="cover-title">Video-Creatives für <span>Rehavibe</span>,<br>die zeigen statt nur zu fotografieren.</h1>
+        <p class="cover-claim">Fünf konkrete Video-Ad-Konzepte für Instagram &amp; Facebook — mit echten Menschen, echten Situationen und einer klaren Testhypothese pro Idee. Vorbereitet für Rehavibe von Vidmaker Studio.</p>
+
+        <div class="cover-meta">
+          <div class="cover-meta-item">
+            <div class="k">Marke</div>
+            <div class="v">Rehavibe</div>
+          </div>
+          <div class="cover-meta-item">
+            <div class="k">Kanal</div>
+            <div class="v">Meta Ads (Instagram / Facebook)</div>
+          </div>
+          <div class="cover-meta-item">
+            <div class="k">Konzepte</div>
+            <div class="v">5 Video-Ad-Ideen</div>
+          </div>
+          <div class="cover-meta-item">
+            <div class="k">Fokus</div>
+            <div class="v">Menschzentriertes Storytelling</div>
+          </div>
+        </div>
+
+        <div class="cover-cta">
+          <button class="btn btn-primary" data-target="statusquo">Zum Status Quo <span class="btn-ghost-arrow">→</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- STATUS QUO SCREEN ---------- -->
+    <section class="screen" id="screen-statusquo">
+      <div class="eyebrow">Ausgangslage</div>
+      <h1 class="page-title">Was aktuell in der Meta Ad Library läuft</h1>
+      <p class="page-lede">Ein kurzer, sachlicher Blick auf das, was Rehavibe gerade schaltet — als Ausgangspunkt für die Konzepte, nicht als Kritik.</p>
+
+      <div class="statusquo-grid">
+        <div class="sq-card">
+          <h3>Aktuell aktive Anzeige</h3>
+          <div class="sq-ad-preview">
+            <div class="sq-ad-header">
+              <div class="sq-ad-avatar"></div>
+              <div class="sq-ad-namewrap">
+                <div class="name">Rehavibe</div>
+                <div class="sponsored">Gesponsert</div>
+              </div>
+            </div>
+            <div class="sq-ad-photo">
+              <span class="cutout-label">Freigestelltes Produktfoto</span>
+            </div>
+            <div class="sq-ad-caption">Badewannenbrett von Rehavibe — sicher &amp; stabil. Jetzt bestellen.</div>
+            <div class="sq-flags">
+              <span class="flag flag-warn">Niedrige Impressionen</span>
+              <span class="flag flag-neutral">1 aktive Anzeige</span>
+              <span class="flag flag-neutral">Kein Video-Creative</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sq-card">
+          <h3>Was uns aufgefallen ist</h3>
+          <ul class="sq-findings-list">
+            <li>
+              <div class="sq-icon">1</div>
+              <div>
+                <div class="t">Nur eine aktive Anzeige</div>
+                <div class="d">In der Meta Ad Library ist aktuell genau eine laufende Anzeige für Rehavibe gelistet — es gibt also noch keine Variantentests.</div>
+              </div>
+            </li>
+            <li>
+              <div class="sq-icon">2</div>
+              <div>
+                <div class="t">Reines Produktfoto, kein Video</div>
+                <div class="d">Das Creative ist ein freigestelltes Foto des Produkts vor neutralem Hintergrund — ohne Kontext, ohne Person, ohne Anwendungssituation.</div>
+              </div>
+            </li>
+            <li>
+              <div class="sq-icon">3</div>
+              <div>
+                <div class="t">Von Meta als "niedrige Impressionen" markiert</div>
+                <div class="d">Meta selbst kennzeichnet die Anzeige mit geringer Reichweite — ein Hinweis darauf, dass das aktuelle Creative im Feed nicht genug Aufmerksamkeit gewinnt.</div>
+              </div>
+            </li>
+          </ul>
+          <div class="sq-opportunity">
+            <strong>Die Opportunity:</strong> Ein Produkt mit einer so starken emotionalen Geschichte — Sicherheit, Unabhängigkeit, Fürsorge — wird aktuell rein funktional beworben. Video-Creatives mit echten Menschen in echten Situationen können genau die Geschichte erzählen, die das Produkt eigentlich verdient.
+          </div>
+          <div class="sq-source-note">Quelle: Meta Ad Library, Rehavibe. Stand zum Zeitpunkt der Analyse — dient als Ausgangspunkt für die folgenden Konzepte, nicht als vollständiger Audit.</div>
+        </div>
+      </div>
+
+      <div class="cover-cta" style="margin-top:36px;">
+        <button class="btn btn-primary" data-target="concept-1">Zu den Konzepten <span class="btn-ghost-arrow">→</span></button>
+      </div>
+    </section>
+
+    <!-- ---------- CONCEPT SCREENS (populated by JS) ---------- -->
+    <div id="concepts-container"></div>
+
+    <!-- ---------- CLOSING SCREEN ---------- -->
+    <section class="screen" id="screen-closing">
+      <div class="closing-screen">
+        <div class="eyebrow">Nächste Schritte</div>
+        <h1 class="closing-title">Der richtige Zeitpunkt, um Video-Creatives zu testen.</h1>
+        <p class="closing-copy">Rehavibe hat aktuell genau ein Creative im Umlauf — jede der fünf Ideen hier wäre bereits ein Test, den es heute noch nicht gibt. Die Produktionspipeline für diese Clips steht, das Konzept-Fundament ist gelegt. Der nächste Schritt ist, gemeinsam zu entscheiden, welche Konzepte wir zuerst produzieren und live testen.</p>
+
+        <div class="closing-points">
+          <div class="closing-point">
+            <div class="num">Warum jetzt</div>
+            <div class="txt">Nur eine aktive Anzeige bedeutet: praktisch jedes neue Creative ist ein potenzieller Zugewinn an Performance-Daten.</div>
+          </div>
+          <div class="closing-point">
+            <div class="num">Was wir testen</div>
+            <div class="txt">5 unterschiedliche Angles — von Sicherheit über Fürsorge bis Reha — um schnell zu lernen, was bei Rehavibes Zielgruppe wirklich zieht.</div>
+          </div>
+          <div class="closing-point">
+            <div class="num">Was als Nächstes passiert</div>
+            <div class="txt">Wir wählen 1–2 Konzepte für die erste Produktionsrunde aus und legen einen Zeitplan für Dreh &amp; Go-Live fest.</div>
+          </div>
+        </div>
+
+        <div class="closing-actions">
+          <button class="btn btn-primary">Call buchen</button>
+          <button class="btn btn-secondary">Antworten</button>
+        </div>
+        <div class="closing-footnote">Vidmaker Studio · Video-Ad-Konzepte für E-Commerce-Marken</div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+(function(){
+
+  const CONCEPTS = [
+    {
+      id: "concept-1",
+      title: "Der sichere Umstieg",
+      handle: "Rehavibe",
+      initials: "RV",
+      scene: "Ältere Person steigt ruhig, sitzend auf dem Badewannenbrett, sicher in die Wanne ein — Split-Screen mit wackeligem Stand ohne Brett.",
+      idea: "Eine direkte Vorher/Nachher-Demonstration: links der unsichere Einstieg ohne Hilfsmittel, rechts der ruhige, sitzende Umstieg mit dem Rehavibe Badewannenbrett. Die Sicherheit wird nicht behauptet, sondern gezeigt.",
+      test: "Funktioniert eine reine Demonstrations- und Sicherheitslogik (Zeigen statt Erzählen) besser als ein emotional geführter Angle? Wir testen, ob der visuelle Beweis allein bereits ausreicht, um Vertrauen und Kaufbereitschaft aufzubauen.",
+      copy: "Ausrutschen in der Badewanne ist eine der häufigsten Ursachen für Stürze im Alter — dabei lässt sich das Risiko mit einer einfachen Lösung fast vollständig vermeiden. Das Rehavibe Badewannenbrett wird quer über die Wanne gelegt und macht aus dem unsicheren Stehen ein ruhiges, sicheres Sitzen beim Ein- und Aussteigen. Kein Werkzeug, keine Bohrlöcher, passend für die meisten Standardwannen. Sehen Sie selbst, wie viel Sicherheit ein einziges Hilfsmittel schaffen kann.",
+      headline: "Sicherheit, die man sofort sieht",
+      description: "Sicher baden ohne Rutschgefahr",
+      cta: "Mehr erfahren"
+    },
+    {
+      id: "concept-2",
+      title: "Sorge der Tochter / des Sohnes",
+      handle: "Rehavibe",
+      initials: "RV",
+      scene: "Testimonial-Stil: erwachsene Tochter spricht direkt in die Kamera, dazwischen kurze Alltagsszene mit der Mutter im Bad.",
+      idea: "Ein persönliches Testimonial aus Sicht eines erwachsenen Kindes, das das Badewannenbrett für die eigenen Eltern gekauft hat. Im Fokus steht nicht das Produkt, sondern das Gefühl, sich keine Sorgen mehr machen zu müssen.",
+      test: "Performt die Zielgruppe der erwachsenen Kinder — die oft die eigentlichen Käufer sind — besser, wenn wir sie direkt ansprechen, statt die Senioren selbst als Hauptzielgruppe zu adressieren?",
+      copy: "\"Seit meine Mutter das Badewannenbrett von Rehavibe hat, mache ich mir beim Gedanken ans Baden keine Sorgen mehr.\" So oder ähnlich hören wir es oft von erwachsenen Kindern, die für ihre Eltern nach einer sicheren Lösung gesucht haben. Das Rehavibe Badewannenbrett gibt Ihren Eltern die Möglichkeit, weiterhin selbstständig und sicher zu baden — sitzend statt stehend, ohne Rutschgefahr. Eine kleine Anschaffung, die ein großes Stück Sorge nimmt. In wenigen Minuten montiert, ganz ohne Umbau im Bad.",
+      headline: "Damit Sie sich keine Sorgen mehr machen",
+      description: "Sicherheit für Ihre Eltern",
+      cta: "Mehr erfahren"
+    },
+    {
+      id: "concept-3",
+      title: "Nach der OP wieder sicher baden",
+      handle: "Rehavibe",
+      initials: "RV",
+      scene: "Person mit Gehhilfe/Bandage nach Hüft- oder Knie-OP nutzt das Badewannenbrett für den ersten sicheren Badewannenbesuch nach dem Eingriff.",
+      idea: "Ein Reha-fokussierter Angle für Menschen, die nach einer Hüft- oder Knie-OP vorübergehend in ihrer Mobilität eingeschränkt sind und einen sicheren Weg zurück zum eigenständigen Baden suchen.",
+      test: "Spricht das Reha-Segment — oft jünger als die klassische Senioren-Zielgruppe, aber mit akutem, zeitlich begrenztem Bedarf — schneller und mit höherer Kaufbereitschaft an als die allgemeine Sicherheits-Zielgruppe?",
+      copy: "Nach einer Hüft- oder Knie-OP ist der Weg zurück in die eigene Badewanne oft der Moment, vor dem viele am meisten zurückschrecken. Das Rehavibe Badewannenbrett schafft eine stabile, sitzende Position zum Ein- und Aussteigen — genau dann, wenn Balance und Kraft noch nicht wieder voll da sind. So wird das Baden während der Reha-Phase nicht zum Risiko, sondern bleibt ein Stück Normalität. Einfach aufgelegt, ohne Umbau, sofort einsatzbereit. Für einen sichereren Weg zurück in den Alltag.",
+      headline: "Sicher baden während der Reha",
+      description: "Unterstützung nach Ihrer OP",
+      cta: "Jetzt bestellen"
+    },
+    {
+      id: "concept-4",
+      title: "Der stille Risikofaktor Badewanne",
+      handle: "Rehavibe",
+      initials: "RV",
+      scene: "Ruhiger Aufklärungs-Einstieg mit Fakt zum Sturzrisiko im Bad, dann Auflösung: Person nutzt entspannt das Badewannenbrett.",
+      idea: "Ein Problem-Awareness-Angle, der mit einem nüchternen Fakt zum Sturzrisiko in der Badewanne eröffnet, bevor das Produkt als naheliegende Lösung eingeführt wird — Aufklärung vor Verkauf.",
+      test: "Funktioniert ein Hook, der zuerst das Problem bewusst macht (\"Wussten Sie...\"), besser als ein produktzentrierter Einstieg, der direkt mit dem Badewannenbrett beginnt?",
+      copy: "Stürze in der Badewanne zählen zu den häufigsten Ursachen für Krankenhauseinweisungen im Alter — ein Risiko, das viele erst ernst nehmen, wenn bereits etwas passiert ist. Dabei lässt sich genau dieses Risiko mit einer einfachen, unauffälligen Lösung deutlich senken. Das Rehavibe Badewannenbrett verwandelt den unsicheren Stand in der Wanne in ein ruhiges, stabiles Sitzen — für mehr Sicherheit beim täglichen Baden. Kein aufwendiger Umbau, keine Handwerker, keine Bohrlöcher. Ein kleiner Schritt, der Stürze verhindern kann, bevor sie passieren.",
+      headline: "Das unterschätzte Risiko im Bad",
+      description: "Sturzrisiko einfach reduzieren",
+      cta: "Sicher baden"
+    },
+    {
+      id: "concept-5",
+      title: "5 Minuten Aufbau, lebenslange Sicherheit",
+      handle: "Rehavibe",
+      initials: "RV",
+      scene: "Zeitraffer: Person legt das Badewannenbrett ohne Werkzeug auf die Wanne, prüft den sicheren Halt, setzt sich zufrieden hinein.",
+      idea: "Ein praktischer Angle, der den geringen Montageaufwand in den Mittelpunkt stellt — keine Bohrlöcher, kein Werkzeug, passend für die meisten Wannen — und damit gängige Kaufeinwände direkt auflöst.",
+      test: "Ist \"Aufwand/Kompliziertheit beim Einbau\" tatsächlich ein relevanter Kaufwiderstand? Wir testen, ob eine Botschaft rund um Einfachheit die Konversion gegenüber reinen Sicherheits-Angles verbessert.",
+      copy: "Viele zögern bei Sicherheitslösungen fürs Bad, weil sie einen aufwendigen Umbau erwarten — beim Rehavibe Badewannenbrett ist das Gegenteil der Fall. Ohne Werkzeug, ohne Bohren, in wenigen Minuten sicher über die Wanne gelegt und sofort einsatzbereit. Es passt auf die meisten Standard-Badewannen und lässt sich bei Bedarf ebenso leicht wieder entfernen. So steht der Sicherheit beim Baden kein Aufwand mehr im Weg — nur noch ein ruhiges, ein- und ausgestiegenes Bad. Geringer Aufwand, dauerhafter Nutzen.",
+      headline: "In 5 Minuten sicher eingerichtet",
+      description: "Kein Werkzeug, kein Umbau",
+      cta: "Jetzt bestellen"
+    }
+  ];
+
+  const screensOrder = ["cover","statusquo", ...CONCEPTS.map(c=>c.id), "closing"];
+  const navLabels = {
+    "cover":"Start",
+    "statusquo":"Status Quo",
+    "closing":"Nächste Schritte"
+  };
+
+  // ---- Build sidebar concept nav ----
+  const conceptNavList = document.getElementById("concept-nav-list");
+  const mobileNavScroll = document.getElementById("mobile-nav-scroll");
+
+  CONCEPTS.forEach((c, i) => {
+    const li = document.createElement("li");
+    li.className = "nav-item";
+    li.innerHTML = `<button class="nav-btn" data-target="${c.id}">
+        <span class="nav-num">${i+1}</span><span class="nav-label-text">${c.title}</span>
+      </button>`;
+    conceptNavList.appendChild(li);
+  });
+
+  // ---- Build mobile top nav (all screens) ----
+  screensOrder.forEach((id, i) => {
+    let label;
+    if (navLabels[id]) label = navLabels[id];
+    else {
+      const c = CONCEPTS.find(cc => cc.id === id);
+      label = (CONCEPTS.indexOf(c)+1) + ". " + c.title;
+    }
+    const btn = document.createElement("button");
+    btn.className = "mobile-nav-btn";
+    btn.dataset.target = id;
+    btn.textContent = label;
+    mobileNavScroll.appendChild(btn);
+  });
+
+  // ---- Build concept screens ----
+  const conceptsContainer = document.getElementById("concepts-container");
+
+  CONCEPTS.forEach((c, i) => {
+    const section = document.createElement("section");
+    section.className = "screen";
+    section.id = "screen-" + c.id;
+
+    const prevId = i === 0 ? "statusquo" : CONCEPTS[i-1].id;
+    const nextId = i === CONCEPTS.length - 1 ? "closing" : CONCEPTS[i+1].id;
+    const nextLabel = i === CONCEPTS.length - 1 ? "Zum Abschluss" : "Nächstes Konzept";
+    const prevLabel = i === 0 ? "Zurück zum Status Quo" : "Vorheriges Konzept";
+
+    section.innerHTML = `
+      <div class="concept-topbar">
+        <span class="concept-pill">Konzept ${i+1} von ${CONCEPTS.length}</span>
+        <span class="concept-progress">${c.title}</span>
+      </div>
+
+      <div class="concept-grid">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="phone-notch"></div>
+              <div class="feed-header">
+                <div class="feed-avatar">${c.initials}</div>
+                <div class="feed-namewrap">
+                  <div class="feed-name">${c.handle}</div>
+                  <div class="feed-sponsored">Gesponsert · 🌐</div>
+                </div>
+                <div class="feed-dots">⋯</div>
+              </div>
+              <div class="feed-media">
+                <span class="storyboard-tag">Storyboard</span>
+                <span class="storyboard-timecode">0:0${(i%9)+1} / 0:15</span>
+                <div class="play-btn"></div>
+                <div class="storyboard-scene-label">Szene</div>
+                <div class="storyboard-desc">${c.scene}</div>
+                <div class="storyboard-bars">
+                  <span class="filled"></span><span class="filled"></span><span></span><span></span><span></span>
+                </div>
+              </div>
+              <div class="feed-actions">
+                <span class="ic">♡</span>
+                <span class="ic">💬</span>
+                <span class="ic">↗</span>
+                <span class="spacer"></span>
+                <span class="ic">⌢</span>
+              </div>
+              <div class="feed-caption"><b>${c.handle}</b> ${c.headline}</div>
+              <div class="feed-cta-bar">
+                <span class="link">rehavibe.com</span>
+                <span class="feed-cta-btn">${c.cta}</span>
+              </div>
+            </div>
+          </div>
+          <div class="phone-caption-note">Konzept-Storyboard — Video wird in der Produktion umgesetzt.</div>
+        </div>
+
+        <div class="breakdown">
+          <div>
+            <h2 class="concept-heading">${c.title}</h2>
+            <p class="concept-sub">Creative-Konzept ${i+1} · Meta Ads Video</p>
+          </div>
+
+          <div class="breakdown-block">
+            <div class="label"><span class="n">💡</span> The Idea</div>
+            <p>${c.idea}</p>
+          </div>
+
+          <div class="breakdown-block test">
+            <div class="label"><span class="n">🧪</span> What We Should Test</div>
+            <p>${c.test}</p>
+          </div>
+
+          <div class="breakdown-block">
+            <div class="label"><span class="n">✍️</span> The Complete Ad Copy</div>
+            <p>${c.copy}</p>
+          </div>
+
+          <div class="copy-block-grid">
+            <div class="mini-block">
+              <div class="label">Headline</div>
+              <div class="value">${c.headline}</div>
+            </div>
+            <div class="mini-block">
+              <div class="label">Description</div>
+              <div class="value">${c.description}</div>
+            </div>
+            <div class="mini-block cta">
+              <div class="label">Call to Action</div>
+              <div class="value">${c.cta}</div>
+            </div>
+          </div>
+
+          <div class="concept-nav-footer">
+            <button class="btn btn-secondary" data-target="${prevId}">← ${prevLabel}</button>
+            <button class="btn btn-primary" data-target="${nextId}">${nextLabel} →</button>
+          </div>
+        </div>
+      </div>
+    `;
+    conceptsContainer.appendChild(section);
+  });
+
+  // ---- Navigation logic ----
+  function showScreen(id){
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    const target = document.getElementById("screen-" + id);
+    if (target) target.classList.add("active");
+
+    document.querySelectorAll(".nav-btn").forEach(b => {
+      b.classList.toggle("active", b.dataset.target === id);
+    });
+    document.querySelectorAll(".mobile-nav-btn").forEach(b => {
+      b.classList.toggle("active", b.dataset.target === id);
+      if (b.dataset.target === id) {
+        b.scrollIntoView({behavior:"smooth", inline:"center", block:"nearest"});
+      }
+    });
+
+    window.scrollTo({top:0, behavior:"instant"});
+    const mainEl = document.querySelector(".main");
+    if (mainEl) mainEl.scrollTop = 0;
+  }
+
+  document.addEventListener("click", function(e){
+    const btn = e.target.closest("[data-target]");
+    if (!btn) return;
+    showScreen(btn.dataset.target);
+  });
+
+  showScreen("cover");
+})();
+</script>
+
+</body>
+</html>
