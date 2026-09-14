@@ -513,131 +513,172 @@
   .feed-sponsored{font-size:10.5px; color:#8a8a8a; display:flex; align-items:center; gap:4px;}
   .feed-dots{color:#8a8a8a; font-weight:700; letter-spacing:1px;}
 
-  /* ---- Ad creative (media) area: real product photo + colored panel ---- */
+  /* ---- Primary text (ad copy) above the media, real Meta-ad order ---- */
+  .feed-primary-text{
+    padding:2px 14px 10px 14px;
+    font-size:11.5px;
+    line-height:1.55;
+    color:#242424;
+  }
+  .feed-primary-text .more{
+    color:#8a8a8a;
+    font-weight:600;
+  }
+
+  /* ---- Ad creative (media) area: art-directed scene + real product photo ---- */
   .feed-media{
     position:relative;
     width:100%;
     aspect-ratio: 4 / 5;
-    display:flex;
-    flex-direction:column;
     overflow:hidden;
     border-top:1px solid #eee;
     border-bottom:1px solid #eee;
   }
-  .ad-kicker{
-    position:relative;
-    z-index:2;
-    padding:16px 18px 0 18px;
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    opacity:0.82;
-  }
-  .ad-headline{
-    position:relative;
-    z-index:2;
-    padding:6px 18px 0 18px;
-    font-size:21px;
-    font-weight:800;
-    line-height:1.22;
-    letter-spacing:-0.01em;
-  }
-  .ad-subline{
-    position:relative;
-    z-index:2;
-    padding:6px 18px 0 18px;
-    font-size:12px;
-    font-weight:600;
-    line-height:1.4;
-    opacity:0.85;
-  }
   .ad-stage{
-    position:relative;
-    flex:1;
+    position:absolute;
+    inset:0;
     display:flex;
     align-items:center;
     justify-content:center;
-    min-height:0;
+    padding-bottom:16%;
   }
   .ad-spotlight{
     position:absolute;
-    width:82%;
-    height:68%;
+    width:80%;
+    height:64%;
     border-radius:50%;
     background:radial-gradient(closest-side, rgba(255,255,255,0.92), rgba(255,255,255,0.5) 60%, rgba(255,255,255,0) 100%);
     filter:blur(2px);
   }
   .ad-product-shot{
     position:relative;
-    width:60%;
+    width:56%;
     mix-blend-mode:multiply;
     filter:contrast(1.08) saturate(0.95);
   }
-
-  /* Panel color themes */
-  .theme-dark{ background:linear-gradient(150deg, #203932 0%, #10201b 100%); }
-  .theme-dark .ad-kicker{ color:#bfe3d4; }
-  .theme-dark .ad-headline{ color:#ffffff; }
-  .theme-dark .ad-subline{ color:#cfe6dd; }
-
-  .theme-warm{ background:linear-gradient(150deg, #f5e2d3 0%, #e9c9ac 100%); }
-  .theme-warm .ad-kicker{ color:#8a5a34; }
-  .theme-warm .ad-headline{ color:#432c1c; }
-  .theme-warm .ad-subline{ color:#6d4a30; }
-
-  .theme-neutral{ background:linear-gradient(160deg, #eef1ef 0%, #dbe2dd 100%); }
-  .theme-neutral .ad-kicker{ color:#5b6660; }
-  .theme-neutral .ad-headline{ color:#1b241f; }
-  .theme-neutral .ad-subline{ color:#5b6660; }
-
-  .theme-alert{ background:linear-gradient(150deg, #2a1e1a 0%, #160f0d 100%); }
-  .theme-alert .ad-kicker{ color:#e8b98a; }
-  .theme-alert .ad-headline{ color:#ffffff; }
-  .theme-alert .ad-subline{ color:#e6d3c2; }
-
-  .theme-mint{ background:linear-gradient(150deg, #e1f0e8 0%, #c7e2d4 100%); }
-  .theme-mint .ad-kicker{ color:#2f6f5e; }
-  .theme-mint .ad-headline{ color:#1f4f42; }
-  .theme-mint .ad-subline{ color:#3a6d5c; }
-
-  .feed-actions{
-    display:flex;
+  .ad-scrim{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:54%;
+    pointer-events:none;
+  }
+  .ad-text{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    z-index:3;
+    padding:18px 20px 20px 20px;
+  }
+  .ad-headline{
+    font-size:22px;
+    font-weight:800;
+    line-height:1.2;
+    letter-spacing:-0.01em;
+    color:#ffffff;
+    margin:0 0 10px 0;
+    text-wrap:balance;
+  }
+  .ad-badge{
+    display:inline-flex;
     align-items:center;
-    gap:14px;
-    padding:10px 14px 4px 14px;
-    color:#2a2a2a;
+    gap:6px;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:6px 11px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,0.35);
+    backdrop-filter:blur(2px);
   }
-  .feed-actions .ic{font-size:19px; line-height:1;}
-  .feed-actions .spacer{flex:1;}
-  .feed-caption{
-    padding:2px 14px 14px 14px;
-    font-size:11.5px;
-    color:#333;
-    line-height:1.5;
+  .ad-badge::before{
+    content:"";
+    width:5px;height:5px;
+    border-radius:50%;
+    background:currentColor;
   }
-  .feed-caption b{font-weight:700;}
-  .feed-cta-bar{
+
+  /* Scene themes: crafted patterns evoking each concept's context */
+  .theme-bath{
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.55) 0 2px, transparent 2px 46px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.55) 0 2px, transparent 2px 46px),
+      linear-gradient(160deg, #dfece9 0%, #c2d9d3 100%);
+  }
+  .theme-bath .ad-scrim{ background:linear-gradient(to top, rgba(13,30,26,0.92) 0%, rgba(13,30,26,0.55) 55%, transparent 100%); }
+  .theme-bath .ad-badge{ background:rgba(47,111,94,0.28); border-color:rgba(191,227,212,0.45); color:#e8f5ef; }
+
+  .theme-warm{
+    background:
+      radial-gradient(circle at 22% 18%, rgba(255,255,255,0.55), transparent 45%),
+      linear-gradient(150deg, #f5e2d3 0%, #e6c19f 100%);
+  }
+  .theme-warm .ad-scrim{ background:linear-gradient(to top, rgba(58,36,20,0.92) 0%, rgba(58,36,20,0.55) 55%, transparent 100%); }
+  .theme-warm .ad-badge{ background:rgba(138,90,52,0.32); border-color:rgba(232,185,138,0.5); color:#fbe9d8; }
+
+  .theme-clinical{
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.55) 0 1px, transparent 1px 40px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.55) 0 1px, transparent 1px 40px),
+      linear-gradient(160deg, #e3eef0 0%, #cbe1e4 100%);
+  }
+  .theme-clinical .ad-scrim{ background:linear-gradient(to top, rgba(15,35,42,0.92) 0%, rgba(15,35,42,0.55) 55%, transparent 100%); }
+  .theme-clinical .ad-badge{ background:rgba(47,95,107,0.3); border-color:rgba(190,220,225,0.5); color:#eaf6f8; }
+
+  .theme-alert{
+    background:
+      radial-gradient(circle at 50% 28%, rgba(122,58,26,0.25), transparent 60%),
+      linear-gradient(160deg, #241a17 0%, #100b09 100%);
+  }
+  .theme-alert .ad-scrim{ background:linear-gradient(to top, rgba(10,6,5,0.95) 0%, rgba(10,6,5,0.6) 55%, transparent 100%); }
+  .theme-alert .ad-badge{ background:rgba(122,58,26,0.35); border-color:rgba(232,185,138,0.5); color:#ffe4c7; }
+
+  .theme-fresh{
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.32) 0 12px, transparent 12px 60px),
+      linear-gradient(150deg, #e1f0e8 0%, #c2ded0 100%);
+  }
+  .theme-fresh .ad-scrim{ background:linear-gradient(to top, rgba(20,45,36,0.92) 0%, rgba(20,45,36,0.55) 55%, transparent 100%); }
+  .theme-fresh .ad-badge{ background:rgba(47,111,94,0.3); border-color:rgba(199,230,212,0.5); color:#eaf7f0; }
+
+  /* ---- Native link card below the media (domain / headline / description / CTA) ---- */
+  .feed-linkcard{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:10px 14px;
+    gap:12px;
+    padding:12px 14px;
     background:#f4f5f4;
     border-top:1px solid #eaeaea;
   }
-  .feed-cta-bar .link{
-    font-size:10.5px;
+  .linkcard-text{ min-width:0; }
+  .linkcard-domain{
+    font-size:10px;
     color:#8a8a8a;
     text-transform:uppercase;
-    letter-spacing:0.03em;
+    letter-spacing:0.04em;
+    margin-bottom:2px;
   }
-  .feed-cta-btn{
+  .linkcard-headline{
+    font-size:13px;
+    font-weight:700;
+    color:#1a1a1a;
+    line-height:1.3;
+  }
+  .linkcard-desc{
+    font-size:11px;
+    color:#6b6b6b;
+    line-height:1.3;
+    margin-top:1px;
+  }
+  .linkcard-btn{
+    flex-shrink:0;
     font-size:11.5px;
     font-weight:700;
     background:#e7e9e8;
     color:#1a1a1a;
-    padding:6px 12px;
+    padding:8px 14px;
     border-radius:6px;
+    white-space:nowrap;
   }
   .phone-caption-note{
     text-align:center;
@@ -1067,7 +1108,7 @@
       title: "Der sichere Umstieg",
       handle: "Rehavibe",
       initials: "RV",
-      theme: "theme-dark",
+      theme: "theme-bath",
       idea: "Ein Split-Screen zeigt den Unterschied ganz direkt: Auf der einen Seite der unsichere, große Schritt über den hohen Wannenrand ohne Hilfsmittel — auf der anderen der ruhige, kontrollierte Umstieg mit der Rehavibe Badewannenstufe als sicherer Zwischenschritt.",
       test: "Funktioniert eine reine Demonstrations- und Sicherheitslogik (Zeigen statt Erzählen) besser als ein emotional geführter Angle? Wir testen, ob der visuelle Beweis allein bereits ausreicht, um Vertrauen und Kaufbereitschaft aufzubauen.",
       copy: "Der hohe Rand vieler Badewannen wird mit der Zeit zur echten Stolperfalle. Die Rehavibe Badewannenstufe verringert genau diesen kritischen Höhenunterschied und macht aus einem riskanten großen Schritt einen sicheren, kontrollierten Umstieg. Höhenverstellbar, mit rutschfesten Gummifüßen und bis 110 kg belastbar — einfach vor die Wanne gestellt, sofort einsatzbereit. Sehen Sie selbst, wie viel Sicherheit eine einzige Stufe schaffen kann.",
@@ -1093,7 +1134,7 @@
       title: "Nach der OP wieder sicher baden",
       handle: "Rehavibe",
       initials: "RV",
-      theme: "theme-neutral",
+      theme: "theme-clinical",
       idea: "Ein Reha-fokussierter Angle für Menschen, die nach einer Hüft- oder Knie-OP vorübergehend in ihrer Beweglichkeit eingeschränkt sind und einen sicheren Weg zurück zum eigenständigen Baden suchen — ohne den hohen Wannenrand allein bewältigen zu müssen.",
       test: "Spricht das Reha-Segment — oft jünger als die klassische Senioren-Zielgruppe, aber mit akutem, zeitlich begrenztem Bedarf — schneller und mit höherer Kaufbereitschaft an als die allgemeine Sicherheits-Zielgruppe?",
       copy: "Nach einer Hüft- oder Knie-OP ist der hohe Rand der eigenen Badewanne oft der Moment, vor dem viele am meisten zurückschrecken. Die Rehavibe Badewannenstufe verringert genau diesen Höhenunterschied und schafft einen sicheren Zwischenschritt — genau dann, wenn Balance und Kraft noch nicht wieder voll da sind. So wird das Baden während der Reha-Phase nicht zum Risiko, sondern bleibt ein Stück Normalität. Höhenverstellbar, sofort einsatzbereit, ganz ohne Umbau.",
@@ -1119,7 +1160,7 @@
       title: "5 Minuten Aufbau, lebenslange Sicherheit",
       handle: "Rehavibe",
       initials: "RV",
-      theme: "theme-mint",
+      theme: "theme-fresh",
       idea: "Ein praktischer Angle, der die einfache Handhabung in den Mittelpunkt stellt — keine Montage, kein Werkzeug, in Sekunden auf die passende Höhe eingestellt — und damit gängige Kaufeinwände direkt auflöst.",
       test: "Ist \"Aufwand/Kompliziertheit bei der Einrichtung\" tatsächlich ein relevanter Kaufwiderstand? Wir testen, ob eine Botschaft rund um Einfachheit die Konversion gegenüber reinen Sicherheits-Angles verbessert.",
       copy: "Viele zögern bei Sicherheitslösungen fürs Bad, weil sie Montage, Bohren oder komplizierten Umbau erwarten — bei der Rehavibe Badewannenstufe ist das nicht nötig. Einfach vor die Wanne stellen, Höhe in Sekunden ohne Werkzeug anpassen, sofort einsatzbereit. Rutschfeste Gummifüße sorgen für sicheren Stand, bis 110 kg belastbar. So steht der Sicherheit beim Baden kein Aufwand mehr im Weg — nur noch ein ruhiger, kontrollierter Ein- und Ausstieg.",
@@ -1128,6 +1169,13 @@
       cta: "Jetzt bestellen"
     }
   ];
+
+  function truncateCopy(text, max){
+    if (text.length <= max) return text;
+    const cut = text.slice(0, max);
+    const lastSpace = cut.lastIndexOf(" ");
+    return cut.slice(0, lastSpace > 0 ? lastSpace : max).replace(/[.,;:!?]$/, "") + "…";
+  }
 
   const screensOrder = ["cover","statusquo", ...CONCEPTS.map(c=>c.id), "closing"];
   const navLabels = {
@@ -1196,26 +1244,25 @@
                 </div>
                 <div class="feed-dots">⋯</div>
               </div>
+              <div class="feed-primary-text">${truncateCopy(c.copy, 105)} <span class="more">Mehr anzeigen</span></div>
               <div class="feed-media ${c.theme}">
-                <div class="ad-kicker">Rehavibe</div>
-                <div class="ad-headline">${c.headline}</div>
-                <div class="ad-subline">${c.description}</div>
                 <div class="ad-stage">
                   <div class="ad-spotlight"></div>
                   <img class="ad-product-shot" src="${PRODUCT_IMG}" alt="Rehavibe Badewannenstufe">
                 </div>
+                <div class="ad-scrim"></div>
+                <div class="ad-text">
+                  <div class="ad-headline">${c.headline}</div>
+                  <span class="ad-badge">Rehavibe</span>
+                </div>
               </div>
-              <div class="feed-actions">
-                <span class="ic">♡</span>
-                <span class="ic">💬</span>
-                <span class="ic">↗</span>
-                <span class="spacer"></span>
-                <span class="ic">⌢</span>
-              </div>
-              <div class="feed-caption"><b>${c.handle}</b> ${c.headline}</div>
-              <div class="feed-cta-bar">
-                <span class="link">rehavibe.com</span>
-                <span class="feed-cta-btn">${c.cta}</span>
+              <div class="feed-linkcard">
+                <div class="linkcard-text">
+                  <div class="linkcard-domain">Rehavibe.com</div>
+                  <div class="linkcard-headline">${c.headline}</div>
+                  <div class="linkcard-desc">${c.description}</div>
+                </div>
+                <div class="linkcard-btn">${c.cta}</div>
               </div>
             </div>
           </div>
